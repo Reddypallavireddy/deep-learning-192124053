@@ -1,0 +1,31 @@
+import numpy as np
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.datasets import load_iris
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+
+# Load dataset (replace this with your dataset loading code)
+data = load_iris()
+X, y = data.data, data.target
+
+# Split data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Define and train your model
+model = DecisionTreeClassifier()
+model.fit(X_train, y_train)
+
+# Evaluate the model on the training data
+train_predictions = model.predict(X_train)
+train_accuracy = accuracy_score(y_train, train_predictions)
+print("Training Accuracy:", train_accuracy)
+
+# Evaluate the model on the testing data
+test_predictions = model.predict(X_test)
+test_accuracy = accuracy_score(y_test, test_predictions)
+print("Testing Accuracy:", test_accuracy)
+
+# Perform cross-validation
+cv_scores = cross_val_score(model, X, y, cv=5)
+print("Cross-validation Scores:", cv_scores)
+print("Mean Cross-validation Score:", np.mean(cv_scores))
