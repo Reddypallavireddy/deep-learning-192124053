@@ -1,0 +1,35 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate synthetic dataset (replace this with your dataset loading code)
+np.random.seed(0)
+X = 2 * np.random.rand(100, 1)
+y = 4 + 3 * X + np.random.randn(100, 1)
+
+# Calculate means
+X_mean = np.mean(X)
+y_mean = np.mean(y)
+
+# Calculate cross-deviation and deviation about x
+cross_deviation = np.sum((X - X_mean) * (y - y_mean))
+x_deviation = np.sum((X - X_mean) ** 2)
+
+# Calculate regression coefficients
+theta_1 = cross_deviation / x_deviation
+theta_0 = y_mean - theta_1 * X_mean
+
+# Function to show plot
+def plot_regression_line(X, y, theta_0, theta_1):
+    plt.scatter(X, y, color='blue')
+    plt.plot(X, theta_0 + theta_1 * X, color='red')  # Regression line
+    plt.title('Linear Regression')
+    plt.xlabel('X')
+    plt.ylabel('y')
+    plt.show()
+
+# Estimate coefficients
+print("Intercept (theta_0):", theta_0)
+print("Slope (theta_1):", theta_1)
+
+# Plot regression line
+plot_regression_line(X, y, theta_0, theta_1)
